@@ -1,0 +1,1188 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>noa — Pitch Deck</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --black: #1d1d1f;
+    --white: #ffffff;
+    --bg-alt: #f5f5f7;
+    --muted: #86868b;
+    --muted2: #6E6E73;
+    --green: #34C759;
+    --red: #FF375F;
+    --orange: #FF9F0A;
+    --blue: #007AFF;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', -apple-system, sans-serif;
+    color: var(--black);
+    background: var(--white);
+    -webkit-font-smoothing: antialiased;
+    line-height: 1.5;
+  }
+
+  /* ── Sections ── */
+  section {
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 80px 40px;
+    position: relative;
+  }
+
+  section:nth-child(even) { background: var(--bg-alt); }
+
+  .content {
+    max-width: 1100px;
+    width: 100%;
+  }
+
+  /* ── Typography ── */
+  .label {
+    font-size: 13px;
+    font-weight: 600;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin-bottom: 12px;
+  }
+
+  h1 {
+    font-size: clamp(48px, 8vw, 96px);
+    font-weight: 700;
+    letter-spacing: -2px;
+    line-height: 1;
+  }
+
+  h2 {
+    font-size: clamp(32px, 5vw, 56px);
+    font-weight: 700;
+    letter-spacing: -1.5px;
+    line-height: 1.1;
+    margin-bottom: 24px;
+  }
+
+  h3 {
+    font-size: 24px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+    margin-bottom: 8px;
+  }
+
+  p.subtitle {
+    font-size: clamp(18px, 2.5vw, 24px);
+    color: var(--muted2);
+    line-height: 1.5;
+    max-width: 700px;
+  }
+
+  p.body {
+    font-size: 17px;
+    color: var(--muted2);
+    line-height: 1.7;
+  }
+
+  /* ── Grid ── */
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 24px; }
+  .grid-4 { display: grid; grid-template-columns: 1fr 1fr 1fr 1fr; gap: 20px; }
+
+  @media (max-width: 768px) {
+    .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
+    section { padding: 60px 24px; }
+  }
+
+  /* ── Cards ── */
+  .card {
+    background: var(--white);
+    border-radius: 20px;
+    padding: 32px;
+    border: 1px solid rgba(0,0,0,0.06);
+  }
+
+  section:nth-child(even) .card { background: var(--white); }
+  section:nth-child(odd) .card { background: var(--bg-alt); }
+
+  .card-dark {
+    background: var(--black);
+    color: var(--white);
+    border-radius: 20px;
+    padding: 32px;
+  }
+
+  .card-dark .label { color: rgba(255,255,255,0.5); }
+  .card-dark p { color: rgba(255,255,255,0.7); }
+
+  /* ── Metrics ── */
+  .metric {
+    font-size: clamp(36px, 5vw, 56px);
+    font-weight: 700;
+    letter-spacing: -1.5px;
+    line-height: 1;
+  }
+
+  .metric-label {
+    font-size: 14px;
+    color: var(--muted);
+    margin-top: 8px;
+    font-weight: 500;
+  }
+
+  .metric-sm {
+    font-size: 28px;
+    font-weight: 700;
+    letter-spacing: -0.5px;
+  }
+
+  /* ── Table ── */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 24px;
+  }
+
+  th {
+    text-align: left;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--muted);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    padding: 12px 16px;
+    border-bottom: 2px solid rgba(0,0,0,0.08);
+  }
+
+  th:last-child, td:last-child { text-align: right; }
+
+  td {
+    padding: 14px 16px;
+    font-size: 15px;
+    border-bottom: 1px solid rgba(0,0,0,0.04);
+  }
+
+  tr:last-child td { border-bottom: none; }
+
+  .row-highlight td {
+    font-weight: 700;
+    background: rgba(0,0,0,0.02);
+    border-top: 2px solid rgba(0,0,0,0.08);
+  }
+
+  .text-green { color: var(--green); }
+  .text-red { color: var(--red); }
+  .text-orange { color: var(--orange); }
+  .text-blue { color: var(--blue); }
+  .text-muted { color: var(--muted); }
+
+  /* ── Bar chart ── */
+  .bar-chart { display: flex; align-items: flex-end; gap: 12px; height: 200px; margin-top: 32px; }
+  .bar-col { flex: 1; display: flex; flex-direction: column; align-items: center; gap: 8px; }
+  .bar {
+    width: 100%;
+    background: var(--black);
+    border-radius: 8px 8px 0 0;
+    min-height: 4px;
+    transition: height 0.5s ease;
+    position: relative;
+  }
+  .bar-label { font-size: 12px; color: var(--muted); font-weight: 500; }
+  .bar-value {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--black);
+    position: absolute;
+    top: -24px;
+    left: 50%;
+    transform: translateX(-50%);
+    white-space: nowrap;
+  }
+
+  /* ── Timeline ── */
+  .timeline { position: relative; padding-left: 32px; margin-top: 32px; }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 7px;
+    top: 8px;
+    bottom: 8px;
+    width: 2px;
+    background: rgba(0,0,0,0.08);
+  }
+  .timeline-item { position: relative; padding-bottom: 32px; }
+  .timeline-item:last-child { padding-bottom: 0; }
+  .timeline-dot {
+    position: absolute;
+    left: -32px;
+    top: 6px;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background: var(--black);
+  }
+  .timeline-dot.active { background: var(--green); }
+  .timeline-dot.future { background: var(--bg-alt); border: 2px solid rgba(0,0,0,0.15); }
+
+  /* ── Tags ── */
+  .tag {
+    display: inline-block;
+    padding: 6px 14px;
+    border-radius: 980px;
+    font-size: 13px;
+    font-weight: 600;
+    background: rgba(0,0,0,0.04);
+    color: var(--muted2);
+    margin: 4px 4px 4px 0;
+  }
+
+  /* ── Divider ── */
+  .divider {
+    height: 1px;
+    background: rgba(0,0,0,0.06);
+    margin: 40px 0;
+  }
+
+  /* ── Nav dots ── */
+  .nav-dots {
+    position: fixed;
+    right: 24px;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    z-index: 100;
+  }
+  .nav-dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: rgba(0,0,0,0.15);
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+  .nav-dot:hover, .nav-dot.active { background: var(--black); transform: scale(1.3); }
+
+  @media (max-width: 768px) { .nav-dots { display: none; } }
+
+  /* ── Animations ── */
+  .fade-in {
+    opacity: 0;
+    transform: translateY(30px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+  .fade-in.visible { opacity: 1; transform: translateY(0); }
+
+  /* ── Footer ── */
+  .footer-note {
+    font-size: 13px;
+    color: var(--muted);
+    text-align: center;
+    padding: 40px;
+  }
+
+  /* ── Feature list ── */
+  .feature-item {
+    display: flex;
+    gap: 16px;
+    align-items: flex-start;
+    padding: 16px 0;
+  }
+  .feature-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 12px;
+    background: var(--black);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-size: 18px;
+    font-weight: 700;
+  }
+</style>
+</head>
+<body>
+
+<!-- Nav dots -->
+<div class="nav-dots" id="navDots"></div>
+
+<!-- ════════════════════════════════════ -->
+<!-- 1. COVER -->
+<!-- ════════════════════════════════════ -->
+<section id="s-cover">
+  <div class="content" style="text-align: center;">
+    <div class="fade-in">
+      <h1 style="margin-bottom: 24px;">noa</h1>
+      <p class="subtitle" style="margin: 0 auto 40px; max-width: 600px;">
+        Tu asistente personal con IA que gestiona todo tu negocio. Software hoy, hardware ma&ntilde;ana.
+      </p>
+      <div style="display: flex; gap: 16px; justify-content: center; flex-wrap: wrap;">
+        <span class="tag">SaaS B2B</span>
+        <span class="tag">IA + Fintech</span>
+        <span class="tag">Aut&oacute;nomos y pymes Espa&ntilde;a</span>
+        <span class="tag">4,6M de mercado potencial</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════ -->
+<!-- 2. PROBLEMA -->
+<!-- ════════════════════════════════════ -->
+<section id="s-problema">
+  <div class="content fade-in">
+    <p class="label">El problema</p>
+    <h2>Aut&oacute;nomos y peque&ntilde;as empresas pierden 15 horas al mes<br>en gesti&oacute;n administrativa</h2>
+    <div class="grid-3" style="margin-top: 40px;">
+      <div class="card">
+        <p class="metric">4,6M</p>
+        <p class="metric-label">Aut&oacute;nomos y peque&ntilde;as empresas en Espa&ntilde;a</p>
+      </div>
+      <div class="card">
+        <p class="metric">68%</p>
+        <p class="metric-label">No usan herramientas digitales de gesti&oacute;n</p>
+      </div>
+      <div class="card">
+        <p class="metric">180h</p>
+        <p class="metric-label">Al a&ntilde;o perdidas en burocracia</p>
+      </div>
+    </div>
+    <div style="margin-top: 40px;">
+      <p class="body">
+        La mayor&iacute;a gestiona su negocio con Excel, WhatsApp y carpetas de papel. Pagan a un gestor 50-300&euro;/mes por tareas que una IA puede automatizar. Pierden facturas, no saben cu&aacute;nto deben a Hacienda hasta que llega el trimestre, y no tienen visibilidad real de sus finanzas.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════════ -->
+<!-- PARTE 1: NOA SOFTWARE                                        -->
+<!-- ════════════════════════════════════════════════════════════════ -->
+
+<!-- ════════════════════════════════════ -->
+<!-- 3. QUÉ ES NOA -->
+<!-- ════════════════════════════════════ -->
+<section id="s-solucion">
+  <div class="content fade-in">
+    <p class="label">Qu&eacute; es Noa</p>
+    <h2>Un cerebro que gestiona tu negocio por ti</h2>
+    <p class="subtitle" style="margin-bottom: 48px;">Noa no es solo una app de facturas. Es un asistente personal con IA que centraliza <strong>todo</strong> lo que necesitas para gestionar tu negocio: finanzas, clientes, impuestos, productividad y m&aacute;s.</p>
+
+    <div class="grid-2">
+      <div>
+        <div class="feature-item">
+          <div class="feature-icon">$</div>
+          <div>
+            <h3 style="font-size: 17px;">Finanzas inteligentes</h3>
+            <p class="body">Conecta tus bancos por PSD2, categoriza gastos con IA, detecta suscripciones autom&aacute;ticamente y estima tus impuestos trimestrales al c&eacute;ntimo.</p>
+          </div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon">F</div>
+          <div>
+            <h3 style="font-size: 17px;">Facturaci&oacute;n profesional</h3>
+            <p class="body">Crea facturas y presupuestos en segundos. Env&iacute;a por email. Controla cobros pendientes. Sube un ticket con foto y la IA extrae todos los datos.</p>
+          </div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon">C</div>
+          <div>
+            <h3 style="font-size: 17px;">CRM y contactos</h3>
+            <p class="body">Historial completo por cliente: facturas, pagos, cobros pendientes. Recordatorios autom&aacute;ticos de cobro.</p>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="feature-item">
+          <div class="feature-icon">P</div>
+          <div>
+            <h3 style="font-size: 17px;">Proyectos y equipos</h3>
+            <p class="body">Gestiona proyectos con tareas, presupuestos y facturaci&oacute;n propia. Invita a tu equipo con permisos granulares.</p>
+          </div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon">T</div>
+          <div>
+            <h3 style="font-size: 17px;">Chat con Noa por Telegram</h3>
+            <p class="body">&ldquo;&iquest;Cu&aacute;nto he facturado este mes?&rdquo; &ldquo;Cr&eacute;ame una factura para X&rdquo;. Sube fotos de recibos. Gestiona sin abrir la app.</p>
+          </div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon" style="background: var(--green);">H</div>
+          <div>
+            <h3 style="font-size: 17px;">Impuestos estimados</h3>
+            <p class="body">Ve en tiempo real cu&aacute;nto debes a Hacienda. IRPF, IVA/IGIC calculados autom&aacute;ticamente. Sin sustos trimestrales.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="card" style="margin-top: 48px; text-align: center; padding: 32px;">
+      <p class="body" style="font-size: 20px; color: var(--black); max-width: 700px; margin: 0 auto;">
+        Un gestor te cobra <strong>50-300&euro;/mes</strong> por hacer lo que Noa hace en segundos.<br>
+        Noa cuesta <strong style="color: var(--green);">19,90&euro;/mes</strong> y trabaja 24/7.
+      </p>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════ -->
+<!-- 4. PRODUCTO SOFTWARE -->
+<!-- ════════════════════════════════════ -->
+<section id="s-producto">
+  <div class="content fade-in">
+    <p class="label">Producto software</p>
+    <h2>Dos interfaces, un cerebro</h2>
+
+    <div class="grid-2" style="margin-top: 40px;">
+      <div class="card-dark">
+        <p class="label">Live</p>
+        <h3 style="color: white; font-size: 22px;">Web PWA &mdash; heynoa.es</h3>
+        <p>Panel completo instalable como app en iPhone, iPad, Mac y Windows. Dashboard, finanzas, facturaci&oacute;n, CRM, calendario, proyectos, impuestos, documentos.</p>
+        <div style="margin-top: 16px;">
+          <span class="tag" style="background: rgba(52,199,89,0.2); color: #34C759;">Funcionando</span>
+        </div>
+      </div>
+      <div class="card-dark">
+        <p class="label">Live</p>
+        <h3 style="color: white; font-size: 22px;">Bot de Telegram</h3>
+        <p>23 herramientas de IA. Sube fotos de recibos, crea facturas, consulta finanzas, marca pagos, controla cobros. Todo por chat, sin abrir la web.</p>
+        <div style="margin-top: 16px;">
+          <span class="tag" style="background: rgba(52,199,89,0.2); color: #34C759;">Funcionando</span>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top: 48px;">
+      <p class="label">Stack tecnol&oacute;gico</p>
+      <div style="display: flex; flex-wrap: wrap; gap: 8px; margin-top: 12px;">
+        <span class="tag">Next.js 14</span>
+        <span class="tag">React 18</span>
+        <span class="tag">Supabase (PostgreSQL)</span>
+        <span class="tag">Claude AI (Haiku)</span>
+        <span class="tag">Gemini 2.0 Flash</span>
+        <span class="tag">PSD2 Open Banking</span>
+        <span class="tag">Telegram API</span>
+        <span class="tag">Google Calendar</span>
+        <span class="tag">Apple Calendar (CalDAV)</span>
+        <span class="tag">Docker + Nginx</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════ -->
+<!-- 5. MODELO DE NEGOCIO SOFTWARE -->
+<!-- ════════════════════════════════════ -->
+<section id="s-modelo">
+  <div class="content fade-in">
+    <p class="label">Modelo de negocio &mdash; Software</p>
+    <h2>Suscripci&oacute;n mensual con oferta de lanzamiento</h2>
+
+    <div class="grid-2" style="margin-top: 40px;">
+      <div class="card">
+        <p class="label">Planes y precios</p>
+        <div style="display: flex; align-items: baseline; gap: 8px; margin-bottom: 4px;">
+          <p class="metric">19,90&euro;</p>
+          <span style="font-size: 18px; color: var(--muted);">/mes</span>
+        </div>
+        <p class="metric-label" style="margin-bottom: 24px;">Plan Pro &mdash; todo ilimitado</p>
+
+        <table>
+          <tr><td style="color: var(--blue);"><strong>Prueba gratuita</strong></td><td style="color: var(--blue);"><strong>1 mes gratis</strong> sin compromiso</td></tr>
+          <tr><td style="color: var(--green);"><strong>Oferta lanzamiento</strong></td><td style="color: var(--green);"><strong>15&euro;/mes</strong> los 2 primeros meses</td></tr>
+          <tr><td><strong>Plan Pro</strong></td><td><strong>19,90&euro;/mes</strong></td></tr>
+          <tr><td>Plan Pro Anual</td><td>14,90&euro;/mes (178,80&euro;/a&ntilde;o) &mdash; 10% dto.</td></tr>
+        </table>
+      </div>
+      <div class="card">
+        <p class="label">Estrategia de adquisici&oacute;n</p>
+        <div style="margin-top: 16px;">
+          <div class="feature-item">
+            <div class="feature-icon" style="background: var(--blue); width: 32px; height: 32px; font-size: 14px;">1</div>
+            <div>
+              <h3 style="font-size: 15px;">1 mes gratis</h3>
+              <p class="body" style="font-size: 14px;">Sin tarjeta. Prueban todo sin compromiso.</p>
+            </div>
+          </div>
+          <div class="feature-item">
+            <div class="feature-icon" style="background: var(--green); width: 32px; height: 32px; font-size: 14px;">2</div>
+            <div>
+              <h3 style="font-size: 15px;">15&euro;/mes los 2 primeros meses</h3>
+              <p class="body" style="font-size: 14px;">Oferta de lanzamiento. Reduce fricci&oacute;n de conversi&oacute;n.</p>
+            </div>
+          </div>
+          <div class="feature-item">
+            <div class="feature-icon" style="width: 32px; height: 32px; font-size: 14px;">3</div>
+            <div>
+              <h3 style="font-size: 15px;">19,90&euro;/mes o 14,90&euro; anual</h3>
+              <p class="body" style="font-size: 14px;">Precio completo. El valor entregado justifica con creces el coste.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════ -->
+<!-- 6. COSTES -->
+<!-- ════════════════════════════════════ -->
+<section id="s-costes">
+  <div class="content fade-in">
+    <p class="label">Estructura de costes</p>
+    <h2>Costes operativos mensuales</h2>
+
+    <div class="grid-2" style="margin-top: 40px; gap: 24px;">
+      <div class="card">
+        <p class="label" style="margin-bottom: 16px;">Plataforma + Operaciones</p>
+        <table>
+          <thead>
+            <tr>
+              <th>Concepto</th>
+              <th>Tipo</th>
+              <th>Mensual</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Claude AI</strong> (API + Code)</td>
+              <td><span class="tag" style="font-size: 11px;">Fijo</span></td>
+              <td>180&euro;</td>
+            </tr>
+            <tr>
+              <td><strong>Servidor VPS</strong></td>
+              <td><span class="tag" style="font-size: 11px;">Fijo</span></td>
+              <td>17&euro;</td>
+            </tr>
+            <tr>
+              <td><strong>Supabase</strong> (DB + Auth)</td>
+              <td><span class="tag" style="font-size: 11px;">Escalable</span></td>
+              <td>25&euro;</td>
+            </tr>
+            <tr>
+              <td><strong>Open Banking</strong></td>
+              <td><span class="tag" style="font-size: 11px;">Variable</span></td>
+              <td>200&euro;</td>
+            </tr>
+            <tr>
+              <td><strong>Dominio + SSL + Email</strong></td>
+              <td><span class="tag" style="font-size: 11px;">Fijo</span></td>
+              <td>15&euro;</td>
+            </tr>
+            <tr>
+              <td><strong>Marketing</strong> (Agencia + Ads)</td>
+              <td><span class="tag" style="font-size: 11px;">Inversi&oacute;n</span></td>
+              <td>2.000&euro;</td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr class="row-highlight">
+              <td><strong>Total plataforma</strong></td>
+              <td></td>
+              <td><strong>2.437&euro;/mes</strong></td>
+            </tr>
+          </tfoot>
+        </table>
+        <p style="font-size: 12px; color: var(--muted); margin-top: 12px;">* Supabase y VPS escalan con clientes: +1.000 cl. &rarr; ~75&euro;/mes Supabase, +2.000 cl. &rarr; ~150&euro;/mes + VPS upgrade</p>
+      </div>
+
+      <div class="card">
+        <p class="label" style="margin-bottom: 16px;">Hardware &mdash; Producci&oacute;n y Prototipos</p>
+        <table>
+          <thead>
+            <tr>
+              <th>Concepto</th>
+              <th>Tipo</th>
+              <th>Coste</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Prototipos</strong> (5 uds.)</td>
+              <td><span class="tag" style="font-size: 11px;">Puntual</span></td>
+              <td>2.500&euro;</td>
+            </tr>
+            <tr>
+              <td><strong>Moldes y tooling</strong></td>
+              <td><span class="tag" style="font-size: 11px;">Puntual</span></td>
+              <td>5.000&euro;</td>
+            </tr>
+            <tr>
+              <td><strong>Primera tirada</strong> (100 uds.)</td>
+              <td><span class="tag" style="font-size: 11px;">Producci&oacute;n</span></td>
+              <td>12.000&euro;</td>
+            </tr>
+            <tr>
+              <td><strong>Voz &mdash; STT</strong> (Whisper)</td>
+              <td><span class="tag" style="font-size: 11px;">Variable</span></td>
+              <td>~0,50&euro;/disp/mes</td>
+            </tr>
+            <tr>
+              <td><strong>Voz &mdash; TTS</strong> (ElevenLabs)</td>
+              <td><span class="tag" style="font-size: 11px;">Variable</span></td>
+              <td>~1,00&euro;/disp/mes</td>
+            </tr>
+            <tr>
+              <td><strong>Wake Word</strong> (Picovoice)</td>
+              <td><span class="tag" style="font-size: 11px;">Variable</span></td>
+              <td>~0,02&euro;/disp/mes</td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr class="row-highlight">
+              <td><strong>Inversi&oacute;n inicial HW</strong></td>
+              <td></td>
+              <td><strong>~19.500&euro;</strong></td>
+            </tr>
+          </tfoot>
+        </table>
+        <p style="font-size: 12px; color: var(--muted); margin-top: 12px;">* APIs de voz por dispositivo: ~1,52&euro;/mes. Con 500 dispositivos &rarr; ~760&euro;/mes</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════ -->
+<!-- 7. PROYECCIONES -->
+<!-- ════════════════════════════════════ -->
+<section id="s-proyecciones">
+  <div class="content fade-in">
+    <p class="label">Proyecciones financieras</p>
+    <h2>Punto de equilibrio: ~123 usuarios</h2>
+
+    <div class="card" style="margin-top: 40px;">
+      <table>
+        <thead>
+          <tr>
+            <th>Clientes de pago</th>
+            <th>Ingresos/mes</th>
+            <th>Costes/mes</th>
+            <th>Beneficio/mes</th>
+            <th>Beneficio/a&ntilde;o</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>100</td>
+            <td>1.990&euro;</td>
+            <td>2.437&euro;</td>
+            <td class="text-red">-447&euro;</td>
+            <td class="text-red">-5.364&euro;</td>
+          </tr>
+          <tr style="background: rgba(52,199,89,0.04);">
+            <td><strong>123 (breakeven)</strong></td>
+            <td><strong>2.449&euro;</strong></td>
+            <td><strong>2.437&euro;</strong></td>
+            <td class="text-green"><strong>+12&euro;</strong></td>
+            <td class="text-green"><strong>+144&euro;</strong></td>
+          </tr>
+          <tr>
+            <td>350 <span class="text-muted" style="font-size: 12px;">(Dic 2026)</span></td>
+            <td>6.965&euro;</td>
+            <td>2.500&euro;</td>
+            <td class="text-green">+4.465&euro;</td>
+            <td class="text-green">+53.580&euro;</td>
+          </tr>
+          <tr>
+            <td><strong>1.000</strong> <span class="text-muted" style="font-size: 12px;">(Jun 2027)</span></td>
+            <td><strong>19.900&euro;</strong></td>
+            <td><strong>2.750&euro;</strong></td>
+            <td class="text-green"><strong>+17.150&euro;</strong></td>
+            <td class="text-green"><strong>+205.800&euro;</strong></td>
+          </tr>
+          <tr>
+            <td><strong>2.000</strong> <span class="text-muted" style="font-size: 12px;">(2029)</span></td>
+            <td><strong>39.800&euro;</strong></td>
+            <td><strong>3.200&euro;</strong></td>
+            <td class="text-green"><strong>+36.600&euro;</strong></td>
+            <td class="text-green"><strong>+439.200&euro;</strong></td>
+          </tr>
+          <tr>
+            <td><strong>3.000</strong> <span class="text-muted" style="font-size: 12px;">(2030)</span></td>
+            <td><strong>59.700&euro;</strong></td>
+            <td><strong>3.800&euro;</strong></td>
+            <td class="text-green"><strong>+55.900&euro;</strong></td>
+            <td class="text-green"><strong>+670.800&euro;</strong></td>
+          </tr>
+        </tbody>
+      </table>
+      <p style="font-size: 12px; color: var(--muted); margin-top: 12px;">* Costes escalan con clientes: +1.000 cl. &rarr; Supabase 75&euro;, VPS upgrade 40&euro;. +2.000 cl. &rarr; Supabase 150&euro;, VPS 80&euro;, soporte +500&euro;.</p>
+    </div>
+
+    <!-- Primer a&ntilde;o mes a mes -->
+    <div style="margin-top: 48px;">
+      <p class="label">Primer a&ntilde;o &mdash; Crecimiento mes a mes</p>
+      <div class="card" style="margin-top: 16px;">
+        <table>
+          <thead>
+            <tr>
+              <th>Mes</th>
+              <th>Clientes</th>
+              <th>Contexto</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td><strong>Jul 2026</strong></td><td>100</td><td class="text-muted">Beta testers + primeros valientes</td></tr>
+            <tr><td><strong>Ago 2026</strong></td><td>100</td><td class="text-muted">Agosto muerto, mantenimiento</td></tr>
+            <tr><td><strong>Sep 2026</strong></td><td>200</td><td class="text-muted">Vuelta de vacaciones, arrancan</td></tr>
+            <tr><td><strong>Oct 2026</strong></td><td>250</td><td class="text-muted">Boca a boca positivo</td></tr>
+            <tr><td><strong>Nov 2026</strong></td><td>300</td><td class="text-muted">Pre Black Friday, presupuestos</td></tr>
+            <tr><td><strong>Dic 2026</strong></td><td style="font-weight: 700;">350</td><td class="text-muted">Cierre de a&ntilde;o, todo el mundo apura</td></tr>
+            <tr style="border-top: 2px solid rgba(0,0,0,0.08);"><td><strong>Ene 2027</strong></td><td>400</td><td class="text-muted">A&ntilde;o nuevo, prop&oacute;sitos empresariales</td></tr>
+            <tr><td><strong>Feb 2027</strong></td><td>450</td><td class="text-muted">Pruebas hardware, primeras pantallas</td></tr>
+            <tr><td><strong>Mar 2027</strong></td><td>550</td><td class="text-muted">P&aacute;nico VeriFactu 2027</td></tr>
+            <tr><td><strong>Abr 2027</strong></td><td>650</td><td class="text-muted">Q1 fuerte, empresas planificando</td></tr>
+            <tr><td><strong>May 2027</strong></td><td>800</td><td class="text-muted">Lanzamiento hardware oficial</td></tr>
+            <tr><td><strong>Jun 2027</strong></td><td style="font-weight: 700; color: var(--green);">1.000</td><td class="text-muted">Pre-VeriFactu rush, todos corriendo</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- Bar chart crecimiento anual -->
+    <div style="margin-top: 48px;">
+      <p class="label">Beneficio mensual por hito</p>
+      <div class="bar-chart">
+        <div class="bar-col">
+          <div class="bar" style="height: 8%; background: var(--red);">
+            <span class="bar-value">-447&euro;</span>
+          </div>
+          <span class="bar-label">100 cl.</span>
+        </div>
+        <div class="bar-col">
+          <div class="bar" style="height: 15%; background: var(--green);">
+            <span class="bar-value">+4.465&euro;</span>
+          </div>
+          <span class="bar-label">350 cl.</span>
+        </div>
+        <div class="bar-col">
+          <div class="bar" style="height: 40%; background: var(--green);">
+            <span class="bar-value">+17.150&euro;</span>
+          </div>
+          <span class="bar-label">1.000 cl.</span>
+        </div>
+        <div class="bar-col">
+          <div class="bar" style="height: 70%; background: var(--green);">
+            <span class="bar-value">+36.600&euro;</span>
+          </div>
+          <span class="bar-label">2.000 cl.</span>
+        </div>
+        <div class="bar-col">
+          <div class="bar" style="height: 100%; background: var(--black);">
+            <span class="bar-value" style="color: var(--green);">+55.900&euro;</span>
+          </div>
+          <span class="bar-label">3.000 cl.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════ -->
+<!-- 8. MERCADO -->
+<!-- ════════════════════════════════════ -->
+<section id="s-mercado">
+  <div class="content fade-in">
+    <p class="label">Mercado</p>
+    <h2>Un mercado de 1.100M&euro;/a&ntilde;o<br>solo en Espa&ntilde;a</h2>
+
+    <div class="grid-3" style="margin-top: 40px;">
+      <div class="card">
+        <p class="label">TAM</p>
+        <p class="metric">1.100M&euro;</p>
+        <p class="metric-label">3.3M aut&oacute;nomos + 1.3M peque&ntilde;as empresas &times; 19,90&euro; &times; 12</p>
+      </div>
+      <div class="card">
+        <p class="label">SAM</p>
+        <p class="metric">71M&euro;</p>
+        <p class="metric-label">~300K aut&oacute;nomos y peque&ntilde;as empresas digitales dispuestos a pagar</p>
+      </div>
+      <div class="card">
+        <p class="label">SOM (A&ntilde;o 1)</p>
+        <p class="metric">84K&euro;</p>
+        <p class="metric-label">~350 clientes de pago objetivo</p>
+      </div>
+    </div>
+
+    <div style="margin-top: 48px;">
+      <p class="label">Competencia</p>
+      <div class="card" style="margin-top: 16px;">
+        <table>
+          <thead>
+            <tr>
+              <th>Producto</th>
+              <th>Precio</th>
+              <th>IA</th>
+              <th>Diferencia con Noa</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Holded</strong></td>
+              <td>29&euro;/mes</td>
+              <td class="text-red">No</td>
+              <td class="text-muted">Solo ERP, sin asistente IA ni voz</td>
+            </tr>
+            <tr>
+              <td><strong>Quipu</strong></td>
+              <td>18&euro;/mes</td>
+              <td class="text-red">No</td>
+              <td class="text-muted">Facturaci&oacute;n b&aacute;sica, sin chat ni bot</td>
+            </tr>
+            <tr>
+              <td><strong>Factorial</strong></td>
+              <td>6&euro;/mes</td>
+              <td class="text-red">No</td>
+              <td class="text-muted">HR/n&oacute;minas, no finanzas de aut&oacute;nomo</td>
+            </tr>
+            <tr>
+              <td><strong>Gestor&iacute;a tradicional</strong></td>
+              <td>50-300&euro;/mes</td>
+              <td class="text-red">No</td>
+              <td class="text-muted">Caro, lento, sin visibilidad real-time</td>
+            </tr>
+            <tr style="background: rgba(29,29,31,0.03);">
+              <td><strong style="color: var(--black);">Noa</strong></td>
+              <td><strong>19,90&euro;/mes</strong></td>
+              <td class="text-green"><strong>S&iacute;</strong></td>
+              <td><strong>IA + Voz + Telegram + Hardware + Todo en uno</strong></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════ -->
+<!-- 12. ROADMAP -->
+<!-- ════════════════════════════════════ -->
+<section id="s-roadmap">
+  <div class="content fade-in">
+    <p class="label">Roadmap</p>
+    <h2>Plan de ejecuci&oacute;n</h2>
+
+    <div class="grid-2" style="margin-top: 40px;">
+      <div>
+        <div class="timeline">
+          <div class="timeline-item">
+            <div class="timeline-dot active"></div>
+            <p class="label" style="margin-bottom: 4px;">Q2 2026 &mdash; Ahora</p>
+            <h3>Beta privada</h3>
+            <p class="body">MVP funcional en heynoa.es. Testing con usuarios reales. Validaci&oacute;n de producto. Onboarding, facturaci&oacute;n, bancos, IA.</p>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot"></div>
+            <p class="label" style="margin-bottom: 4px;">Q3 2026</p>
+            <h3>Lanzamiento p&uacute;blico</h3>
+            <p class="body">Marketing con agencia (2.000&euro;/mes). 1 mes gratis + oferta lanzamiento 15&euro;/mes. Primeros 200 clientes. PWA optimizada.</p>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot future"></div>
+            <p class="label" style="margin-bottom: 4px;">Q4 2026</p>
+            <h3>Crecimiento</h3>
+            <p class="body">350 clientes a cierre de a&ntilde;o. VeriFactu como motor. Partnerships con asesor&iacute;as.</p>
+          </div>
+          <div class="timeline-item">
+            <div class="timeline-dot future"></div>
+            <p class="label" style="margin-bottom: 4px;">2027</p>
+            <h3>Dispositivo Noa + 1.000 clientes</h3>
+            <p class="body">Lanzamiento hardware oficial (mayo). Interfaz de voz. 1.000 clientes en junio. Pre-VeriFactu rush.</p>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="card-dark" style="margin-bottom: 16px;">
+          <p class="label">Objetivos de crecimiento</p>
+          <table style="margin-top: 16px;">
+            <thead>
+              <tr>
+                <th style="color: rgba(255,255,255,0.4);">A&ntilde;o</th>
+                <th style="color: rgba(255,255,255,0.4);">Clientes</th>
+                <th style="color: rgba(255,255,255,0.4);">Crecimiento</th>
+                <th style="color: rgba(255,255,255,0.4);">MRR</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td style="color: rgba(255,255,255,0.9); border-color: rgba(255,255,255,0.06);"><strong>2026</strong> <span style="font-size: 11px; color: rgba(255,255,255,0.4);">Lanzamiento</span></td>
+                <td style="color: white; border-color: rgba(255,255,255,0.06); font-weight: 700;">350</td>
+                <td style="color: rgba(255,255,255,0.5); border-color: rgba(255,255,255,0.06);">&mdash;</td>
+                <td style="color: #34C759; border-color: rgba(255,255,255,0.06); font-weight: 700;">6.965&euro;</td>
+              </tr>
+              <tr>
+                <td style="color: rgba(255,255,255,0.9); border-color: rgba(255,255,255,0.06);"><strong>2027</strong> <span style="font-size: 11px; color: rgba(255,255,255,0.4);">Consolidaci&oacute;n + HW</span></td>
+                <td style="color: white; border-color: rgba(255,255,255,0.06); font-weight: 700;">1.000</td>
+                <td style="color: #34C759; border-color: rgba(255,255,255,0.06); font-weight: 700;">+186%</td>
+                <td style="color: #34C759; border-color: rgba(255,255,255,0.06); font-weight: 700;">19.900&euro;</td>
+              </tr>
+              <tr>
+                <td style="color: rgba(255,255,255,0.9); border-color: rgba(255,255,255,0.06);"><strong>2028</strong> <span style="font-size: 11px; color: rgba(255,255,255,0.4);">Consolidaci&oacute;n real</span></td>
+                <td style="color: white; border-color: rgba(255,255,255,0.06); font-weight: 700;">1.400</td>
+                <td style="color: #34C759; border-color: rgba(255,255,255,0.06); font-weight: 700;">+40%</td>
+                <td style="color: #34C759; border-color: rgba(255,255,255,0.06); font-weight: 700;">27.860&euro;</td>
+              </tr>
+              <tr>
+                <td style="color: rgba(255,255,255,0.9); border-color: rgba(255,255,255,0.06);"><strong>2029</strong> <span style="font-size: 11px; color: rgba(255,255,255,0.4);">Expansi&oacute;n</span></td>
+                <td style="color: white; border-color: rgba(255,255,255,0.06); font-weight: 700;">2.000</td>
+                <td style="color: #34C759; border-color: rgba(255,255,255,0.06); font-weight: 700;">+43%</td>
+                <td style="color: #34C759; border-color: rgba(255,255,255,0.06); font-weight: 700;">39.800&euro;</td>
+              </tr>
+              <tr>
+                <td style="color: rgba(255,255,255,0.9); border-color: rgba(255,255,255,0.06);"><strong>2030</strong> <span style="font-size: 11px; color: rgba(255,255,255,0.4);">Liderazgo</span></td>
+                <td style="color: white; border-color: rgba(255,255,255,0.06); font-weight: 700;">3.000</td>
+                <td style="color: #34C759; border-color: rgba(255,255,255,0.06); font-weight: 700;">+50%</td>
+                <td style="color: #34C759; border-color: rgba(255,255,255,0.06); font-weight: 700;">59.700&euro;</td>
+              </tr>
+            </tbody>
+          </table>
+          <p style="color: rgba(255,255,255,0.3); font-size: 12px; margin-top: 12px;">*MRR solo software (19,90&euro;/mes). Hardware e ingresos por dispositivo no incluidos. Costes escalan proporcionalmente con clientes.</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════════════════════════════════ -->
+<!-- PARTE 2: DISPOSITIVO NOA                                     -->
+<!-- ════════════════════════════════════════════════════════════════ -->
+
+<!-- ════════════════════════════════════ -->
+<!-- 10. QUÉ ES EL DISPOSITIVO NOA -->
+<!-- ════════════════════════════════════ -->
+<section id="s-dispositivo">
+  <div class="content fade-in">
+    <p class="label">Dispositivo Noa &mdash; 2027</p>
+    <h2>Tu asistente de negocio siempre visible en tu escritorio</h2>
+    <p class="subtitle" style="margin-bottom: 48px;">No es un Echo Show. No es una tablet. Es una pantalla dise&ntilde;ada para gestionar tu negocio con la voz y el tacto.</p>
+
+    <div class="grid-2" style="margin-top: 40px;">
+      <div>
+        <div class="feature-item">
+          <div class="feature-icon">&#128172;</div>
+          <div>
+            <h3 style="font-size: 17px;">&ldquo;Hey Noa, &iquest;cu&aacute;nto he facturado este mes?&rdquo;</h3>
+            <p class="body">Habla con tu asistente sin tocar nada. Consulta finanzas, crea facturas, revisa cobros pendientes &mdash; todo por voz.</p>
+          </div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon">&#128200;</div>
+          <div>
+            <h3 style="font-size: 17px;">Dashboard siempre visible</h3>
+            <p class="body">Ve tus ingresos, gastos, facturas pendientes y calendario del d&iacute;a en tiempo real. Sin abrir el port&aacute;til.</p>
+          </div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon">&#128276;</div>
+          <div>
+            <h3 style="font-size: 17px;">Alertas inteligentes</h3>
+            <p class="body">&ldquo;Tienes 2 facturas por vencer esta semana&rdquo;. &ldquo;Tu cliente X no ha pagado en 15 d&iacute;as&rdquo;. Sin que preguntes.</p>
+          </div>
+        </div>
+        <div class="feature-item">
+          <div class="feature-icon" style="background: var(--green);">&#9889;</div>
+          <div>
+            <h3 style="font-size: 17px;">Acci&oacute;n instant&aacute;nea</h3>
+            <p class="body">&ldquo;Env&iacute;a recordatorio de cobro a Juan&rdquo;. &ldquo;Cr&eacute;ame presupuesto para el proyecto X&rdquo;. Sin pantallas, sin clicks.</p>
+          </div>
+        </div>
+      </div>
+      <div>
+        <div class="card" style="padding: 40px; text-align: center; height: 100%; display: flex; flex-direction: column; justify-content: center;">
+          <p class="label">Especificaciones</p>
+          <div style="margin-top: 24px; text-align: left;">
+            <p class="body"><strong>Pantalla:</strong> 7-10&rdquo; t&aacute;ctil IPS</p>
+            <p class="body"><strong>Procesador:</strong> ARM Cortex-A</p>
+            <p class="body"><strong>Micr&oacute;fono:</strong> Array 2-mic con cancelaci&oacute;n de ruido</p>
+            <p class="body"><strong>Altavoz:</strong> Integrado de alta calidad</p>
+            <p class="body"><strong>Conectividad:</strong> WiFi 5 + Bluetooth 5.0</p>
+            <p class="body"><strong>Wake word:</strong> &ldquo;Hey Noa&rdquo; (Picovoice)</p>
+            <p class="body"><strong>STT:</strong> Whisper API (OpenAI)</p>
+            <p class="body"><strong>TTS:</strong> ElevenLabs (voz natural)</p>
+          </div>
+          <div style="margin-top: 24px;">
+            <span class="tag" style="background: rgba(52,199,89,0.1); color: var(--green);">Prototipo Q1 2027</span>
+            <span class="tag" style="background: rgba(0,122,255,0.1); color: var(--blue);">Lanzamiento Mayo 2027</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════ -->
+<!-- 11. DISPOSITIVO — COSTES Y MODELO -->
+<!-- ════════════════════════════════════ -->
+<section id="s-hw-costes">
+  <div class="content fade-in">
+    <p class="label">Dispositivo &mdash; Costes y modelo</p>
+    <h2>249&euro; por unidad + suscripci&oacute;n obligatoria</h2>
+
+    <div class="grid-3" style="margin-top: 40px;">
+      <div class="card">
+        <p class="label">Coste por unidad</p>
+        <table>
+          <tr><td>Placa + SoC</td><td>35&euro;</td></tr>
+          <tr><td>Pantalla t&aacute;ctil</td><td>40&euro;</td></tr>
+          <tr><td>Micr&oacute;fono + altavoz</td><td>15&euro;</td></tr>
+          <tr><td>Carcasa</td><td>20&euro;</td></tr>
+          <tr><td>Montaje + QA</td><td>10&euro;</td></tr>
+          <tr class="row-highlight"><td><strong>Total</strong></td><td><strong>~120&euro;</strong></td></tr>
+        </table>
+        <p style="margin-top: 16px; font-size: 15px;"><strong>PVP: 249&euro;</strong> &rarr; Margen <span class="text-green">130&euro; (52%)</span></p>
+        <p style="margin-top: 12px; font-size: 13px; color: var(--muted);">Sin suscripci&oacute;n: modo Essential (dashboard, reloj, calendario). Con suscripci&oacute;n: IA, voz, alertas y gesti&oacute;n completa. APIs personalizables: conecta WordPress, Shopify y m&aacute;s.</p>
+      </div>
+      <div class="card">
+        <p class="label">Inversi&oacute;n inicial</p>
+        <table>
+          <tr><td>Prototipos (5 uds.)</td><td>2.500&euro;</td></tr>
+          <tr><td>Moldes y tooling</td><td>5.000&euro;</td></tr>
+          <tr><td>Primera tirada (100 uds.)</td><td>12.000&euro;</td></tr>
+          <tr class="row-highlight"><td><strong>Total</strong></td><td><strong>~19.500&euro;</strong></td></tr>
+        </table>
+        <p style="margin-top: 16px; font-size: 13px; color: var(--muted);">Se recupera con la venta de ~150 dispositivos</p>
+      </div>
+      <div class="card">
+        <p class="label">APIs de voz (mensual/disp.)</p>
+        <table>
+          <tr><td>Whisper (STT)</td><td>~0,50&euro;</td></tr>
+          <tr><td>ElevenLabs (TTS)</td><td>~1,00&euro;</td></tr>
+          <tr><td>Picovoice (wake)</td><td>~0,02&euro;</td></tr>
+          <tr class="row-highlight"><td><strong>Total</strong></td><td><strong>~1,52&euro;/disp</strong></td></tr>
+        </table>
+        <p style="margin-top: 16px; font-size: 13px; color: var(--muted);">Cubierto por la suscripci&oacute;n de 19,90&euro;/mes del usuario</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════ -->
+<!-- 13. EQUIPO -->
+<!-- ════════════════════════════════════ -->
+<section id="s-equipo">
+  <div class="content fade-in" style="text-align: center;">
+    <p class="label">Equipo</p>
+    <h2>Fundadores</h2>
+
+    <div style="display: flex; gap: 48px; justify-content: center; flex-wrap: wrap; margin: 48px auto 0; max-width: 700px;">
+      <!-- Felipe -->
+      <div style="flex: 1; min-width: 260px; max-width: 320px;">
+        <div style="width: 80px; height: 80px; border-radius: 50%; background: var(--black); color: white; display: flex; align-items: center; justify-content: center; font-size: 28px; font-weight: 700; margin: 0 auto 20px;">FC</div>
+        <h3 style="font-size: 22px;">Felipe C&aacute;mara Barroso</h3>
+        <p style="font-size: 14px; color: var(--muted); margin: 4px 0 0; font-weight: 500;">CEO &amp; CTO</p>
+        <p class="body" style="text-align: center; margin-top: 12px;">Visi&oacute;n, producto, desarrollo e IA. Construyendo Noa desde cero &mdash; c&oacute;digo, dise&ntilde;o y arquitectura.</p>
+        <div style="margin-top: 16px;">
+          <span class="tag">Full-stack</span>
+          <span class="tag">IA</span>
+          <span class="tag">Producto</span>
+          <span class="tag">Dise&ntilde;o</span>
+        </div>
+      </div>
+
+      <!-- Álvaro -->
+      <div style="flex: 1; min-width: 260px; max-width: 320px;">
+        <div style="width: 80px; height: 80px; border-radius: 50%; background: var(--black); color: white; display: flex; align-items: center; justify-content: center; font-size: 28px; font-weight: 700; margin: 0 auto 20px;">AN</div>
+        <h3 style="font-size: 22px;">&Aacute;lvaro Navarro</h3>
+        <p style="font-size: 14px; color: var(--muted); margin: 4px 0 0; font-weight: 500;">COO</p>
+        <p class="body" style="text-align: center; margin-top: 12px;">Relaciones, estrategia comercial, marketing y finanzas. Impulsa el crecimiento y las alianzas de Noa.</p>
+        <div style="margin-top: 16px;">
+          <span class="tag">Marketing</span>
+          <span class="tag">Finanzas</span>
+          <span class="tag">Relaciones</span>
+          <span class="tag">Estrategia</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ════════════════════════════════════ -->
+<!-- 14. CIERRE -->
+<!-- ════════════════════════════════════ -->
+<section id="s-cierre" style="background: var(--black); color: white;">
+  <div class="content fade-in" style="text-align: center;">
+    <h1 style="color: white; margin-bottom: 24px;">noa</h1>
+    <p style="font-size: clamp(18px, 2.5vw, 24px); color: rgba(255,255,255,0.6); max-width: 600px; margin: 0 auto 48px;">
+      El futuro de la gesti&oacute;n para aut&oacute;nomos y peque&ntilde;as empresas es personal, inteligente y siempre disponible.
+    </p>
+
+    <div class="grid-4" style="max-width: 800px; margin: 0 auto;">
+      <div>
+        <p class="metric" style="color: white;">4,6M</p>
+        <p class="metric-label" style="color: rgba(255,255,255,0.4);">Mercado potencial</p>
+      </div>
+      <div>
+        <p class="metric" style="color: white;">19,90&euro;</p>
+        <p class="metric-label" style="color: rgba(255,255,255,0.4);">/mes</p>
+      </div>
+      <div>
+        <p class="metric" style="color: var(--green);">123</p>
+        <p class="metric-label" style="color: rgba(255,255,255,0.4);">Breakeven</p>
+      </div>
+      <div>
+        <p class="metric" style="color: white;">3.000</p>
+        <p class="metric-label" style="color: rgba(255,255,255,0.4);">Clientes 2030</p>
+      </div>
+    </div>
+
+    <div style="margin-top: 64px;">
+      <p style="font-size: 17px; color: rgba(255,255,255,0.6);">
+        heynoa.es &nbsp;&middot;&nbsp; hola@heynoa.es &nbsp;&middot;&nbsp; Canarias, Espa&ntilde;a
+      </p>
+    </div>
+  </div>
+</section>
+
+<p class="footer-note">Documento confidencial &mdash; Noa &copy; 2026. Todos los datos son estimaciones.</p>
+
+<script>
+  // Intersection observer for fade-in animations
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+  // Nav dots
+  const sections = document.querySelectorAll('section');
+  const navDots = document.getElementById('navDots');
+
+  sections.forEach((section, i) => {
+    const dot = document.createElement('div');
+    dot.className = 'nav-dot';
+    dot.onclick = () => section.scrollIntoView({ behavior: 'smooth' });
+    navDots.appendChild(dot);
+  });
+
+  const dotElements = navDots.querySelectorAll('.nav-dot');
+
+  const sectionObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        const index = Array.from(sections).indexOf(entry.target);
+        dotElements.forEach((d, i) => d.classList.toggle('active', i === index));
+      }
+    });
+  }, { threshold: 0.5 });
+
+  sections.forEach(s => sectionObserver.observe(s));
+</script>
+
+</body>
+</html>
